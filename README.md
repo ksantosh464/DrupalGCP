@@ -54,7 +54,6 @@ Now you can run the command to download drupal:
 ```sh
 composer require "ext-gd:*" --ignore-platform-reqs
 ```
-4. 
 
 ***Add app.yaml***
 
