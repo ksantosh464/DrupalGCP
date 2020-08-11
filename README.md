@@ -77,7 +77,7 @@ runtime_config:
 ***Deploy Drupal to App Engine***
 
 ```sh
-gcloud app deploy
+gcloud app deploy --version v1
 ```
 1. Wait for 5-10 mins 
 
