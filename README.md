@@ -1,5 +1,5 @@
 
-# Pre-Requisites
+# Prerequisites
 
 Before setting up Drupal 8 on App Engine Flexible, you will need to complete the following:
 1. Install Git , php and Composer
