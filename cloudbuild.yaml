@@ -1,0 +1,4 @@
+steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['app', 'deploy', 'drupal-8.9.3/app.yaml', '--version=v1']
+  timeout: '5600s'
