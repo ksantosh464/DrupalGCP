@@ -9,7 +9,7 @@ Before setting up Drupal 8 on App Engine Flexible, you will need to complete the
 5. execute below git clone command
 ```sh
 git clone https://github.com/ksantosh464/DrupalGCP
-'''
+```
 # Install Drupal 8.9
 
  Use the Drupal 8 Drush CLI to install a drupal project. This can be installed locally by running composer install in this directory:
