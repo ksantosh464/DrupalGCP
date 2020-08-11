@@ -2,11 +2,14 @@
 # Pre-Requisites
 
 Before setting up Drupal 8 on App Engine Flexible, you will need to complete the following:
-1. Install Git , PHP and Composer
+1. Install git , PHP and Composer in your local machine
 2. Create a [Google Cloud Platform project](https://console.cloud.google.com/). Note your Project ID, as you will need it later.
 3. Create a [Google Cloud SQL instance](https://cloud.google.com/sql/docs/getting-started) with Public IP. Note down the Instance details You will use this as your Drupal MySQL backend.
 4. Install [Gcloud SDK](https://cloud.google.com/sdk/install)
-
+5. execute below git clone command
+```sh
+git clone https://github.com/ksantosh464/DrupalGCP
+'''
 # Install Drupal 8.9
 
  Use the Drupal 8 Drush CLI to install a drupal project. This can be installed locally by running composer install in this directory:
