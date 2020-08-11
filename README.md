@@ -1,26 +1,18 @@
-Drupal 8 on App Engine Flexible Environment
-===========================================
 
-## Overview
-
-This guide will help you deploy Drupal 8 on [App Engine Flexible][1]
-
-## Prerequisites
+# Pre-Requisites
 
 Before setting up Drupal 8 on App Engine Flexible, you will need to complete the following:
+1. Install Git , php and Composer
+2. Create a [Google Cloud Platform project](https://console.cloud.google.com/). Note your Project ID, as you will need it later.
+3. Create a [Google Cloud SQL instance](https://cloud.google.com/sql/docs/getting-started) with Public IP. Note down the Instance details You will use this as your Drupal MySQL backend.
+4. Install [Gcloud SDK](https://cloud.google.com/sdk/install)
 
-  1. Create a [Google Cloud Platform project][2]. Note your **Project ID**, as you will need it
-     later.
-  1. Create a [Google Cloud SQL instance][3]. You will use this as your Drupal MySQL backend.
+# Install Drupal 8.9
 
-## Install Drupal 8
-
-### Download
-
-Use the [Drupal 8 Drush CLI][4] to install a drupal project. This can be installed locally
-by running `composer install` in this directory:
+ Use the Drupal 8 Drush CLI to install a drupal project. This can be installed locally by running composer install in this directory:
 
 ```sh
+cd DrupalGCP
 composer install
 ./vendor/bin/drush
 ```
@@ -28,68 +20,59 @@ composer install
 Now you can run the command to download drupal:
 
 ```sh
-cd /path/to/drupal
-/path/to/drush dl drupal
+./vendor/bin/drush dl drupal
 ```
-
-Alternatively, you can download a compressed file of Drupal 8 from the [Drupal Website][5].
-
-### Installation
+# Installation
 
   1. Set up your Drupal 8 instance using the web interface
+
   ```sh
-  cd /path/to/drupal
+  cd drupal-8.9.3
   php -S localhost:8080
   ```
-  Open [http://localhost:8080](http://localhost:8080) in your browser after running these steps
+  2. Open [http://localhost:8080](http://localhost:8080) in your browser after running these steps
 
-  1. You can also try setting up your Drupal 8 instance using [Drush][4]
-  ```sh
-  cd /path/to/drupal
-  /path/to/drush site-install \
-    --locale=en \
-    --db-path=mysql://user@pass:host/db_name \
-    --site-name='My Drupal Site On Google' \
-    --site-mail=you@example.com \
-    --account-name admin \
-    --account-mail you@example.com \
-    --account-pass admin
-  ```
+> Choose Language --> English
 
-You will want to use the Cloud SQL credentials you created in the **Prerequisites** section as your
-Drupal backend.
+> Choose PROFILE -->  Standard
 
-## Add app.yaml
+ >Verify Requirements
 
-Add a file `app.yaml` with the following contents to the root of your Drupal project:
+ > Setup Database --> Provide the details of  MySQL Cloud SQL ( Instance Name, username, password, IP address and Port)
 
-```yaml
-runtime: php
-env: flex
-```
+ >Install Site --> Install
 
-`app.yaml` is the App Engine configuration for your project.
+ >Configrue Site --> Confiure the site with preffered username and password
 
-## Disable CSS and JS Cache
+ 3. Press Ctrl+ C or Cmd + C to kill the local server
 
-For now, you need to disable the CSS and JS preprocessed caching that Drupal 8 enables by default.
-To do this, go to `/admin/config/development/performance` and deselect the two
-chechboxes (`Aggregate CSS files` and `Aggregate JS files`) under **Bandwidth Optimizations**.
-
-Alternatively, you can use [Drush][4] to change this config setting:
+4. Execute below command
 
 ```sh
-# this command must be run inside the root directory of a drupal project
-cd /path/to/drupal
-/path/to/drush pm-enable config -y
-/path/to/drush config-set system.performance css.preprocess 0
-/path/to/drush config-set system.performance js.preprocess 0
+composer require "ext-gd:*" --ignore-platform-reqs
+```
+4. 
+
+***Add app.yaml***
+
+Add a file app.yaml with the following contents to the root of your Drupal project:
+
+```sh
+runtime: php
+env: flex
+service: drupal
+
+runtime_config:
+  document_root: .
 ```
 
-This will change the values `preprocess` under `css` and `js` to `false`.
+***Deploy Drupal to App Engine***
 
-[1]: https://cloud.google.com/appengine/docs/flexible/
-[2]: https://console.cloud.google.com
-[3]: https://cloud.google.com/sql/docs/getting-started
-[4]: http://docs.drush.org/en/master/install/
-[5]: https://www.drupal.org/8/download
+```sh
+gcloud app deploy
+```
+1. Wait for 5-10 mins 
+
+2. Go to [GCP App Engine Page](https://console.cloud.google.com/appengine) --> Versions
+
+3. Click on the version and you should be able to see the druapl site on GCP App Engine
