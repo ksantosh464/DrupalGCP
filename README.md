@@ -83,4 +83,4 @@ gcloud app deploy --version v1
 
 2. Go to [GCP App Engine Page](https://console.cloud.google.com/appengine) --> Versions
 
-3. Click on the version and you should be able to see the druapl site on GCP App Engine
+3. Click on the version v1 and you should be able to see the druapl site on GCP App Engine
