@@ -60,6 +60,14 @@ composer require "ext-gd:*" --ignore-platform-reqs
 ````
 cp sites/example.settings.local.php sites/default/settings.local.php
 ````
+
+6. Execute below command
+
+````
+./vendor/bin/drush pm-enable config -y
+./vendor/bin/drush config-set system.performance css.preprocess 0
+./vendor/bin/drush config-set system.performance js.preprocess 0
+````
 ***Add app.yaml***
 
 
